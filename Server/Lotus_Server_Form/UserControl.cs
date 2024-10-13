@@ -31,14 +31,28 @@ namespace Lotus_Server_Form
                 return "2";
             }
         }
-        public bool registerControl(string userName, string password, string confirmPassword, string email)
+        public string registerControl(string userName, string password, string confirmPassword, string email) // 0 = kullanıcı zaten kayıtlı, 1 = email zaten var, 2 = kayıt yapıldı
         {
-
-            using (StreamWriter sw = new StreamWriter(filePath,true))
+            string[] userData = File.ReadAllLines(filePath);
+            if (userData.Contains(userName))
             {
-
+                return "0";
             }
-            return false;
+            else if (userData.Contains(email))
+            {
+                return "1";
+            }
+            else
+            {
+                using (StreamWriter sw = new StreamWriter(filePath,true))
+                {
+                    sw.WriteLine(userName);
+                    sw.WriteLine(password);
+                    sw.WriteLine(email);
+                }
+                return "2";
+            }
+          
         }
     }
 }

@@ -160,6 +160,11 @@ namespace Lotus
 
         }
 
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) // kayıt Ekranı
+        {
+
+        }
+
         private void cb_sifregg_CheckedChanged(object sender, EventArgs e)
         {
             if (cb_sifregg.Checked)

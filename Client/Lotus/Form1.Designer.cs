@@ -46,6 +46,7 @@
             this.btn_max = new System.Windows.Forms.Button();
             this.btn_close = new System.Windows.Forms.Button();
             this.tm1_pnl1 = new System.Windows.Forms.Timer(this.components);
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.pnl1.SuspendLayout();
             this.pnl2.SuspendLayout();
             this.topPanel.SuspendLayout();
@@ -71,6 +72,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnl2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.pnl2.Controls.Add(this.linkLabel1);
             this.pnl2.Controls.Add(this.label3);
             this.pnl2.Controls.Add(this.label2);
             this.pnl2.Controls.Add(this.label1);
@@ -89,7 +91,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label3.ForeColor = System.Drawing.Color.Navy;
-            this.label3.Location = new System.Drawing.Point(469, 307);
+            this.label3.Location = new System.Drawing.Point(472, 260);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 21);
             this.label3.TabIndex = 7;
@@ -100,7 +102,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label2.ForeColor = System.Drawing.Color.Navy;
-            this.label2.Location = new System.Drawing.Point(442, 243);
+            this.label2.Location = new System.Drawing.Point(445, 196);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(98, 21);
             this.label2.TabIndex = 6;
@@ -121,7 +123,7 @@
             // cb_sifregg
             // 
             this.cb_sifregg.AutoSize = true;
-            this.cb_sifregg.Location = new System.Drawing.Point(585, 338);
+            this.cb_sifregg.Location = new System.Drawing.Point(588, 291);
             this.cb_sifregg.Name = "cb_sifregg";
             this.cb_sifregg.Size = new System.Drawing.Size(57, 17);
             this.cb_sifregg.TabIndex = 4;
@@ -132,7 +134,7 @@
             // tb_sifre
             // 
             this.tb_sifre.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.tb_sifre.Location = new System.Drawing.Point(403, 331);
+            this.tb_sifre.Location = new System.Drawing.Point(406, 284);
             this.tb_sifre.Name = "tb_sifre";
             this.tb_sifre.Size = new System.Drawing.Size(176, 26);
             this.tb_sifre.TabIndex = 3;
@@ -140,7 +142,7 @@
             // tb_kAdi
             // 
             this.tb_kAdi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.tb_kAdi.Location = new System.Drawing.Point(403, 264);
+            this.tb_kAdi.Location = new System.Drawing.Point(406, 217);
             this.tb_kAdi.Name = "tb_kAdi";
             this.tb_kAdi.Size = new System.Drawing.Size(176, 26);
             this.tb_kAdi.TabIndex = 2;
@@ -150,7 +152,7 @@
             this.btn_geri1.BackColor = System.Drawing.SystemColors.ControlText;
             this.btn_geri1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btn_geri1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_geri1.Location = new System.Drawing.Point(313, 414);
+            this.btn_geri1.Location = new System.Drawing.Point(316, 367);
             this.btn_geri1.Name = "btn_geri1";
             this.btn_geri1.Size = new System.Drawing.Size(176, 59);
             this.btn_geri1.TabIndex = 1;
@@ -163,11 +165,11 @@
             this.btn_kOlustur.BackColor = System.Drawing.SystemColors.ControlText;
             this.btn_kOlustur.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btn_kOlustur.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_kOlustur.Location = new System.Drawing.Point(495, 414);
+            this.btn_kOlustur.Location = new System.Drawing.Point(508, 368);
             this.btn_kOlustur.Name = "btn_kOlustur";
             this.btn_kOlustur.Size = new System.Drawing.Size(176, 59);
             this.btn_kOlustur.TabIndex = 1;
-            this.btn_kOlustur.Text = "Kullanıcı Oluştur";
+            this.btn_kOlustur.Text = "Giriş";
             this.btn_kOlustur.UseVisualStyleBackColor = false;
             this.btn_kOlustur.Click += new System.EventHandler(this.btn_kOlustur_Click);
             // 
@@ -253,6 +255,17 @@
             this.tm1_pnl1.Interval = 10;
             this.tm1_pnl1.Tick += new System.EventHandler(this.tm1_pnl1_Tick);
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(473, 445);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(55, 13);
+            this.linkLabel1.TabIndex = 9;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "linkLabel1";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -294,6 +307,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
 
