@@ -170,6 +170,11 @@ namespace Lotus
 
         }
 
+        private void pnl2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         private void cb_sifregg_CheckedChanged(object sender, EventArgs e)
         {
             if (cb_sifregg.Checked)

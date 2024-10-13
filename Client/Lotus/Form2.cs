@@ -28,8 +28,8 @@ namespace Lotus
             {
                 data = new LotusData("193.106.196.207", 53447, listBoxMessages, textBoxMessage, UserName);
                 listBoxMessages.Items.Add("Sunucuya bağlanıldı.");
+                data.SendMessage(UserName+ "sunucuya katıldı.");
             }
-            data.SendMessage();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -46,6 +46,11 @@ namespace Lotus
             if (client != null) client.Close();
             Form1 frm1 = new Form1();
             frm1.Show();
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
