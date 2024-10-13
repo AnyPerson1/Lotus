@@ -39,6 +39,10 @@ namespace Lotus.Data
             this.textBoxMessage = textBox;
             KullaniciAdi = kullaniciAdi;
         }
+        public LotusData()
+        {
+
+        }
 
         public void ReceiveMessages(ListBox listBoxMessages)
         {
@@ -77,6 +81,21 @@ namespace Lotus.Data
                     listBoxMessages.Items.Add(fullMessage);
                     textBoxMessage.Clear();
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Mesaj gönderme hatası: {ex.Message}");
+            }
+        }
+        public void SendMessage(string message)
+        {
+            try
+            {
+                string fullMessage = message;
+                byte[] data = Encoding.UTF8.GetBytes(fullMessage);
+                stream.Write(data, 0, data.Length);
+                listBoxMessages.Items.Add(fullMessage);
+                textBoxMessage.Clear();
             }
             catch (Exception ex)
             {
