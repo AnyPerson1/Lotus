@@ -39,34 +39,11 @@ namespace Lotus.Data
             this.textBoxMessage = textBox;
             KullaniciAdi = kullaniciAdi;
         }
-        public LotusData(string ip, int port, string kullaniciAdi)
-        {
-
-            try
-            {
-                client = new TcpClient(ip, port);
-                stream = client.GetStream();
-
-                receiveThread = new Thread(() => ReceiveMessages(listBoxMessages));
-                receiveThread.IsBackground = true;
-                receiveThread.Start();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Bağlantı hatası: {ex.Message}");
-            }
-            KullaniciAdi = kullaniciAdi;
-        }
         public LotusData()
         {
 
         }
 
-        public void defineControls(TextBox textBoxMessage2, ListBox listBoxMessages2)
-        {
-            listBoxMessages = listBoxMessages2;
-            textBoxMessage = textBoxMessage2;
-        }
         public void ReceiveMessages(ListBox listBoxMessages)
         {
             try
@@ -117,6 +94,8 @@ namespace Lotus.Data
                 string fullMessage = message;
                 byte[] data = Encoding.UTF8.GetBytes(fullMessage);
                 stream.Write(data, 0, data.Length);
+                listBoxMessages.Items.Add(fullMessage);
+                textBoxMessage.Clear();
             }
             catch (Exception ex)
             {

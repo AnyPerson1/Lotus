@@ -14,7 +14,6 @@ namespace Lotus_Server_Form
         private Server server;
         private NetworkStream stream;
         private Thread clientThread;
-        private bool userNameRecieved = false;
 
         public ClientHandler(TcpClient tcpClient, Server serverInstance)
         {
@@ -39,15 +38,8 @@ namespace Lotus_Server_Form
                 while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0)
                 {
                     string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                    if (!userNameRecieved)
-                    {
-
-                    }
-                    else
-                    {
-                        server.AddMessageToChat(message);
-                        server.BroadcastMessage(message, client);
-                    }
+                    server.AddMessageToChat(message);
+                    server.BroadcastMessage(message, client);
                 }
             }
             catch (Exception)
