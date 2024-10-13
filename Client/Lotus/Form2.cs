@@ -28,7 +28,7 @@ namespace Lotus
             {
                 data = new LotusData("193.106.196.207", 53447, listBoxMessages, textBoxMessage, UserName);
                 listBoxMessages.Items.Add("Sunucuya bağlanıldı.");
-                data.SendMessage(UserName+ "sunucuya katıldı.");
+                data.SendMessage(UserName+ " sunucuya katıldı.");
             }
         }
 
