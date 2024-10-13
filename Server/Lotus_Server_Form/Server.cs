@@ -21,6 +21,7 @@ namespace Lotus_Server_Form
         private Action<TcpClient> addClientToList;
         private Action<TcpClient> removeClientFromList;
         private Action<string> addMessageToChat;
+        private bool userNameTaken = false;
 
         public Server(int port, Action<string> logEventAction, Action<TcpClient> addClientAction, Action<TcpClient> removeClientAction, Action<string> addChatMessageAction)
         {
@@ -60,7 +61,7 @@ namespace Lotus_Server_Form
             {
                 try
                 {
-                    TcpClient tcpClient = server.AcceptTcpClient(); // Bağlanmayı bekle
+                    TcpClient tcpClient = server.AcceptTcpClient();
                     ClientHandler clientHandler = new ClientHandler(tcpClient, this);
                     lock (clients)
                     {
@@ -74,7 +75,6 @@ namespace Lotus_Server_Form
                 {
                     if (isRunning)
                     {
-                        // Sunucu kapatılmadığı sürece bu hatayı logla
                         logger.Log($"SocketException: {ex.Message}");
                     }
                 }
