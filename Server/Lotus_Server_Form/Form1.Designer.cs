@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.lbl_durum = new System.Windows.Forms.Label();
             this.btn_SunucuAc = new System.Windows.Forms.Button();
             this.gb_Sunucu = new System.Windows.Forms.GroupBox();
@@ -157,6 +158,8 @@
             this.Controls.Add(this.gb_bilgiler);
             this.Controls.Add(this.gb_Sunucu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Sunucu";
             this.gb_Sunucu.ResumeLayout(false);
