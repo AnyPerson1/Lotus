@@ -44,6 +44,7 @@ namespace Lotus_Server_Form
                     if (!userNameRecieved)
                     {
                         server.BroadcastMessage(message,client);
+                        userNameRecieved=true;
                     }
                     else
                     {
