@@ -53,10 +53,10 @@ namespace Lotus_Server_Form
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //server.RemoveClient(this);
-                System.Windows.Forms.MessageBox.Show("Test");
+                System.Windows.Forms.MessageBox.Show(ex.ToString());
             }
         }
 
