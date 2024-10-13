@@ -155,6 +155,11 @@ namespace Lotus
         {
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void cb_sifregg_CheckedChanged(object sender, EventArgs e)
         {
             if (cb_sifregg.Checked)

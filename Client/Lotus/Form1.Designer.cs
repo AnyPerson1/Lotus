@@ -116,6 +116,7 @@
             this.label1.Size = new System.Drawing.Size(319, 74);
             this.label1.TabIndex = 5;
             this.label1.Text = "Sana Nasıl Hitap Edelim?\r\n            \"Kullanıcı\"";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // cb_sifregg
             // 

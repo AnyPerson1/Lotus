@@ -9,103 +9,34 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Lotus.Data;
 
 namespace Lotus
 {
     public partial class Form2 : Form
     {
-        private string kullaniciAdi;
         private TcpClient client;
         private NetworkStream stream;
         private Thread receiveThread;
+        LotusData data;
 
         public Form2(string UserName)
         {
             InitializeComponent();
-            this.kullaniciAdi = UserName;
-            ConnectToServer();
+
+            if (client == null || !client.Connected)
+            {
+                data = new LotusData("193.106.196.207", 53447, listBoxMessages, textBoxMessage, UserName);
+                listBoxMessages.Items.Add("Sunucuya bağlanıldı.");
+            }
+            data.SendMessage();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             if (client == null || !client.Connected)
             {
-                ConnectToServer();
-            }
-            SendMessage();
-        }
-        private void ConnectToServer()
-        {
-            try
-            {
-                // Sunucuya bağlan
-                client = new TcpClient("193.106.196.207", 53447);
-                stream = client.GetStream();
-
-                // Sunucudan mesaj alacak thread başlat
-                receiveThread = new Thread(ReceiveMessages);
-                receiveThread.IsBackground = true;
-                receiveThread.Start();
-
-                // Bağlantı durumunu yazdır
-                listBoxMessages.Items.Add("Sunucuya bağlanıldı.");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Bağlantı hatası: {ex.Message}");
-            }
-        }
-        private void ReceiveMessages()
-        {
-            try
-            {
-                while (client.Connected)
-                {
-                    byte[] buffer = new byte[1024];
-                    int bytesRead = stream.Read(buffer, 0, buffer.Length);
-                    if (bytesRead > 0)
-                    {
-                        string receivedMessage = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-
-                        // Mesajı ListBox'a ekle
-                        Invoke(new Action(() =>
-                        {
-                            listBoxMessages.Items.Add(receivedMessage);
-                        }));
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                Invoke(new Action(() =>
-                {
-                    listBoxMessages.Items.Add("Sunucuyla bağlantı kesildi.");
-                }));
-            }
-        }
-        private void SendMessage()
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(textBoxMessage.Text))
-                {
-                    // Kullanıcı adı ile mesajı birleştir
-                    string fullMessage = $"{kullaniciAdi}: {textBoxMessage.Text}";
-
-                    // Mesajı byte dizisine çevir ve gönder
-                    byte[] data = Encoding.UTF8.GetBytes(fullMessage);
-                    stream.Write(data, 0, data.Length);
-
-                    // ListBox'a mesajı ekle
-                    listBoxMessages.Items.Add(fullMessage);
-
-                    // Mesaj kutusunu temizle
-                    textBoxMessage.Clear();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Mesaj gönderme hatası: {ex.Message}");
+                data.SendMessage();
             }
         }
 
