@@ -8,12 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using Lotus.Data;
 
 namespace Lotus
 {
     public partial class Form1 : Form
     {
         Form2 frm2;
+        LotusData data;
+
         public string KullaniciAdi { get; private set; }
         string UserName, UserPassword;
 
@@ -39,6 +42,7 @@ namespace Lotus
             InitializeComponent();
             pnl1.Height = panelMaxHeight;
             tb_sifre.PasswordChar = '*';
+            data = new LotusData();
         }
 
         private void btn_close_Click(object sender, EventArgs e)
@@ -149,6 +153,7 @@ namespace Lotus
             {
                 tm1_pnl1.Start();
             }
+            data.SendMessage(tb_kAdi.Text);
         }
 
         private void topPanel_Paint(object sender, PaintEventArgs e)
