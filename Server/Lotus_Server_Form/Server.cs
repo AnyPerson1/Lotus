@@ -87,10 +87,6 @@ namespace Lotus_Server_Form
 
         public void RemoveClient(ClientHandler clientHandler)
         {
-            lock (clients)
-            {
-                clients.Remove(clientHandler);
-            }
             removeClientFromList(clientHandler.GetClient());
             logger.Log("İstemci bağlantısı kapatıldı.");
         }

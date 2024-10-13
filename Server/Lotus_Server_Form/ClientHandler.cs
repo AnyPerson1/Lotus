@@ -44,7 +44,8 @@ namespace Lotus_Server_Form
             }
             catch (Exception)
             {
-                server.RemoveClient(this);
+                //server.RemoveClient(this);
+                System.Windows.Forms.MessageBox.Show("Test");
             }
         }
 
