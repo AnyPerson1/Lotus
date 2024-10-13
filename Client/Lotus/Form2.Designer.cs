@@ -81,16 +81,16 @@
             this.Name = "Form2";
             this.Text = "Form2";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
+            this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBoxMessage;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListBox listBoxMessages;
         private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.TextBox textBoxMessage;
+        public System.Windows.Forms.ListBox listBoxMessages;
     }
 }

@@ -22,7 +22,6 @@ namespace Lotus_Server_Form
         private Action<TcpClient> addClientToList;
         private Action<TcpClient> removeClientFromList;
         private Action<string> addMessageToChat;
-        private bool userNameTaken = false;
 
         public Server(int port, Action<string> logEventAction, Action<TcpClient> addClientAction, Action<TcpClient> removeClientAction, Action<string> addChatMessageAction)
         {

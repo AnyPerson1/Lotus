@@ -19,24 +19,25 @@ namespace Lotus
         private NetworkStream stream;
         private Thread receiveThread;
         LotusData data;
+        private bool defined = false;
 
         public Form2(string UserName)
         {
             InitializeComponent();
-
-            if (client == null || !client.Connected)
-            {
-                data = new LotusData("193.106.196.207", 53447, listBoxMessages, textBoxMessage, UserName);
-                listBoxMessages.Items.Add("Sunucuya bağlanıldı.");
-            }
-            data.SendMessage();
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (!defined)
+            {
+                data.defineControls(textBoxMessage, listBoxMessages);
+                defined = true;
+            }
             if (client == null || !client.Connected)
             {
                 data.SendMessage();
+                
             }
         }
 
@@ -46,6 +47,12 @@ namespace Lotus
             if (client != null) client.Close();
             Form1 frm1 = new Form1();
             frm1.Show();
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            listBoxMessages.Items.Add("Sunucuya bağlanıldı.");
+            
         }
     }
 }
