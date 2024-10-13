@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.pnl1 = new System.Windows.Forms.Panel();
             this.pnl2 = new System.Windows.Forms.Panel();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -46,7 +47,6 @@
             this.btn_max = new System.Windows.Forms.Button();
             this.btn_close = new System.Windows.Forms.Button();
             this.tm1_pnl1 = new System.Windows.Forms.Timer(this.components);
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.pnl1.SuspendLayout();
             this.pnl2.SuspendLayout();
             this.topPanel.SuspendLayout();
@@ -85,6 +85,18 @@
             this.pnl2.Name = "pnl2";
             this.pnl2.Size = new System.Drawing.Size(973, 542);
             this.pnl2.TabIndex = 2;
+            this.pnl2.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl2_Paint);
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(403, 325);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(121, 13);
+            this.linkLabel1.TabIndex = 9;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Kayıt yok mu? Hesap ol.";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // label3
             // 
@@ -254,17 +266,6 @@
             // 
             this.tm1_pnl1.Interval = 10;
             this.tm1_pnl1.Tick += new System.EventHandler(this.tm1_pnl1_Tick);
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(403, 325);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(121, 13);
-            this.linkLabel1.TabIndex = 9;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Kayıt yok mu? Hesap ol.";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // Form1
             // 

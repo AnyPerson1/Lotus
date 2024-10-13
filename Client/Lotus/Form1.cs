@@ -42,7 +42,6 @@ namespace Lotus
             InitializeComponent();
             pnl1.Height = panelMaxHeight;
             tb_sifre.PasswordChar = '*';
-            data = new LotusData();
         }
 
         private void btn_close_Click(object sender, EventArgs e)
@@ -153,7 +152,6 @@ namespace Lotus
             {
                 tm1_pnl1.Start();
             }
-            data.SendMessage(tb_kAdi.Text);
         }
 
         private void topPanel_Paint(object sender, PaintEventArgs e)
@@ -166,6 +164,11 @@ namespace Lotus
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) // kayıt Ekranı
+        {
+
+        }
+
+        private void pnl2_Paint(object sender, PaintEventArgs e)
         {
 
         }
