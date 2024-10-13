@@ -162,7 +162,7 @@ namespace Lotus
             {
                 tm1_pnl1.Start();
             }
-            data.SendMessage(tb_kAdi.Text);
+            data.SendMessage(tb_kAdi.Text+" sunucuya katıldı.");
         }
 
         private void topPanel_Paint(object sender, PaintEventArgs e)

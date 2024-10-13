@@ -43,7 +43,7 @@ namespace Lotus_Server_Form
                     string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                     if (!userNameRecieved)
                     {
-                        server.BoardcastUser(message);
+                        server.BroadcastMessage(message,client);
                     }
                     else
                     {
