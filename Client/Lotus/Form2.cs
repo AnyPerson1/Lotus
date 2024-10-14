@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NAudio.Wave;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,16 +10,17 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Lotus.Data;
+using Whispry.Data;
 
 namespace Lotus
 {
     public partial class Form2 : Form
     {
+        #region Yazı
         private TcpClient client;
         private NetworkStream stream;
         private Thread receiveThread;
-        LotusData data;
+        WhispryData data;
 
         public Form2(string UserName)
         {
@@ -26,7 +28,7 @@ namespace Lotus
 
             if (client == null || !client.Connected)
             {
-                data = new LotusData("193.106.196.207", 53447, listBoxMessages, textBoxMessage, UserName);
+                data = new WhispryData("193.106.196.207", 53447, listBoxMessages, textBoxMessage, UserName);
                 listBoxMessages.Items.Add("Sunucuya bağlanıldı.");
                 data.SendMessage(UserName+ " sunucuya katıldı.");
             }
@@ -39,7 +41,7 @@ namespace Lotus
                 data.SendMessage();
             }
         }
-
+        #endregion
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (stream != null) stream.Close();
@@ -52,5 +54,21 @@ namespace Lotus
         {
 
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+        private TcpClient VoiceClient;
+        private NetworkStream VoiceStream;
+        WhispryData VoiceData;
+        private void button2_Click(object sender, EventArgs e)
+        {
+            VoiceData = new WhispryData("193.106.196.207", 53447);
+            data.SendMessage(data.KullaniciAdi+" sesli sohbete katıldı.");
+            VoiceData.StartVoiceListening();
+            
+        }
+        
     }
 }

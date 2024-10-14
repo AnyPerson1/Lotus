@@ -11,8 +11,8 @@ namespace Lotus_Server_Form
 {
     internal class Server
     {
-        private TcpListener server;
-        private List<ClientHandler> clients;
+        private TcpListener server { get; set; }
+        public List<ClientHandler> clients { get; private set; }
         private Thread serverThread;
         private bool isRunning;
         private EventLogger logger;

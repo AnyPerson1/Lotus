@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NAudio.Wave;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,19 +8,21 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace Lotus.Data
+namespace Whispry.Data
 {
-    public class LotusData
+    public class WhispryData
     {
-        private string kullaniciAdi;
         private TcpClient client;
+        private TcpClient VoiceClient;
         private NetworkStream stream;
+        private NetworkStream VoiceStream;
         private Thread receiveThread;
         private ListBox listBoxMessages;
-        private TextBox textBoxMessage;
-        private string KullaniciAdi;
-        public LotusData(string ip, int port, ListBox listBox, TextBox textBox, string kullaniciAdi)
+        private System.Windows.Forms.TextBox textBoxMessage;
+        public string KullaniciAdi;
+        public WhispryData(string ip, int port, ListBox listBox, System.Windows.Forms.TextBox textBox, string kullaniciAdi)
         {
             listBoxMessages = listBox;
             try
@@ -39,7 +42,24 @@ namespace Lotus.Data
             this.textBoxMessage = textBox;
             KullaniciAdi = kullaniciAdi;
         }
-        public LotusData()
+        public WhispryData(string ip, int port)
+        {
+            
+            try
+            {
+                VoiceClient = new TcpClient(ip, port);
+                VoiceStream = VoiceClient.GetStream();
+
+                receiveThread = new Thread(() => ReceiveVoice(listBoxMessages));
+                receiveThread.IsBackground = true;
+                receiveThread.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Bağlantı hatası: {ex.Message}");
+            }
+        }
+        public WhispryData()
         {
 
         }
@@ -52,6 +72,31 @@ namespace Lotus.Data
                 {
                     byte[] buffer = new byte[1024];
                     int bytesRead = stream.Read(buffer, 0, buffer.Length);
+                    if (bytesRead > 0)
+                    {
+                        string receivedMessage = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+
+                        listBoxMessages.Invoke((MethodInvoker)delegate
+                        {
+                            listBoxMessages.Items.Add(receivedMessage);
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Sunucu ile bağlantı kesildi: " + ex.Message);
+                Application.Exit();
+            }
+        }
+        public void ReceiveVoice(ListBox listBoxMessages)
+        {
+            try
+            {
+                while (VoiceClient.Connected)
+                {
+                    byte[] buffer = new byte[1024];
+                    int bytesRead = VoiceStream.Read(buffer, 0, buffer.Length);
                     if (bytesRead > 0)
                     {
                         string receivedMessage = Encoding.UTF8.GetString(buffer, 0, bytesRead);
@@ -102,6 +147,26 @@ namespace Lotus.Data
                 MessageBox.Show($"Mesaj gönderme hatası: {ex.Message}");
             }
         }
-
+        private WaveInEvent waveIn;
+        public void StartVoiceListening()
+        {
+            waveIn = new WaveInEvent();
+            waveIn.WaveFormat = new WaveFormat(44100, 1);
+            waveIn.DataAvailable += WaveIn_DataAvailable;
+        }
+        public void WaveIn_DataAvailable(object sender, WaveInEventArgs e)
+        {
+            try
+            {
+                if (VoiceStream.CanWrite)
+                {
+                    VoiceStream.Write(e.Buffer, 0, e.BytesRecorded);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hata: " + ex.Message);
+            }
+        }
     }
 }

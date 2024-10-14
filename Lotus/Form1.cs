@@ -14,13 +14,12 @@ namespace Lotus
     public partial class Form1 : Form
     {
         Form2 frm2;
-
         public string KullaniciAdi { get; private set; }
         string UserName, UserPassword;
 
-        //private FormWindowState previousWindowState;
-        //private FormBorderStyle previousBorderStyle;
-        //private bool isMaximized = false;
+        private FormWindowState previousWindowState;
+        private FormBorderStyle previousBorderStyle;
+        private bool isMaximized = false;
 
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
@@ -150,25 +149,6 @@ namespace Lotus
             {
                 tm1_pnl1.Start();
             }
-        }
-
-        private void topPanel_Paint(object sender, PaintEventArgs e)
-        {
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) // kayıt Ekranı
-        {
-
-        }
-
-        private void pnl2_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void cb_sifregg_CheckedChanged(object sender, EventArgs e)
