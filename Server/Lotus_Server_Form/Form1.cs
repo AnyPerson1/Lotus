@@ -15,7 +15,7 @@ namespace Lotus_Server_Form
 {
     public partial class Form1 : Form
     {
-        private Server server;
+        private ServerHandler server;
 
         public Form1()
         {
@@ -27,11 +27,15 @@ namespace Lotus_Server_Form
         {
             if (server == null)
             {
-                server = new Server(53447, AddEvent, AddClientToList, RemoveClientFromList, AddMessage);
-                server.Start();
-                btn_SunucuAc.Text = "Sunucuyu Kapat";
-                pb_sDurum.BackColor = Color.Green;
-                lbl_durum.Text = "Sunucu Şuan Açık";
+                server = new ServerHandler(53447, 62321, AddEvent, AddClientToList, RemoveClientFromList, AddMessage);
+                if (server.Start())
+                {
+                    btn_SunucuAc.Text = "Sunucuyu Kapat";
+                    pb_sDurum.BackColor = Color.Green;
+                    lbl_durum.Text = "Sunucu Şuan Açık";
+                }
+                else
+                    MessageBox.Show("Sunucu başlatılırken bir hata oluştu, hata detayları günlüğe eklendi.");
             }
             else
             {
@@ -91,6 +95,11 @@ namespace Lotus_Server_Form
             {
                 lb_chat.Items.Add(message);
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using NAudio.Wave;
+﻿using Lotus.Classes;
+using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,6 +45,7 @@ namespace Lotus
         #endregion
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Reporter.Report("W00001");
             if (stream != null) stream.Close();
             if (client != null) client.Close();
             Form1 frm1 = new Form1();

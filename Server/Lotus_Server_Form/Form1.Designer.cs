@@ -50,10 +50,9 @@
             // 
             this.lbl_durum.AutoSize = true;
             this.lbl_durum.ForeColor = System.Drawing.Color.GreenYellow;
-            this.lbl_durum.Location = new System.Drawing.Point(73, 50);
-            this.lbl_durum.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl_durum.Location = new System.Drawing.Point(55, 41);
             this.lbl_durum.Name = "lbl_durum";
-            this.lbl_durum.Size = new System.Drawing.Size(126, 16);
+            this.lbl_durum.Size = new System.Drawing.Size(104, 13);
             this.lbl_durum.TabIndex = 0;
             this.lbl_durum.Text = "Sunucu Şuan Kapalı";
             // 
@@ -61,10 +60,9 @@
             // 
             this.btn_SunucuAc.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btn_SunucuAc.ForeColor = System.Drawing.Color.GreenYellow;
-            this.btn_SunucuAc.Location = new System.Drawing.Point(60, 89);
-            this.btn_SunucuAc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_SunucuAc.Location = new System.Drawing.Point(45, 72);
             this.btn_SunucuAc.Name = "btn_SunucuAc";
-            this.btn_SunucuAc.Size = new System.Drawing.Size(135, 39);
+            this.btn_SunucuAc.Size = new System.Drawing.Size(101, 32);
             this.btn_SunucuAc.TabIndex = 1;
             this.btn_SunucuAc.Text = "Suncuyu Başlat";
             this.btn_SunucuAc.UseVisualStyleBackColor = false;
@@ -76,11 +74,9 @@
             this.gb_Sunucu.Controls.Add(this.lbl_durum);
             this.gb_Sunucu.Controls.Add(this.btn_SunucuAc);
             this.gb_Sunucu.ForeColor = System.Drawing.Color.GreenYellow;
-            this.gb_Sunucu.Location = new System.Drawing.Point(16, 15);
-            this.gb_Sunucu.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gb_Sunucu.Location = new System.Drawing.Point(12, 12);
             this.gb_Sunucu.Name = "gb_Sunucu";
-            this.gb_Sunucu.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.gb_Sunucu.Size = new System.Drawing.Size(257, 162);
+            this.gb_Sunucu.Size = new System.Drawing.Size(193, 132);
             this.gb_Sunucu.TabIndex = 2;
             this.gb_Sunucu.TabStop = false;
             this.gb_Sunucu.Text = "Sunucu Durum";
@@ -88,10 +84,9 @@
             // pb_sDurum
             // 
             this.pb_sDurum.BackColor = System.Drawing.Color.Red;
-            this.pb_sDurum.Location = new System.Drawing.Point(39, 49);
-            this.pb_sDurum.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pb_sDurum.Location = new System.Drawing.Point(29, 40);
             this.pb_sDurum.Name = "pb_sDurum";
-            this.pb_sDurum.Size = new System.Drawing.Size(20, 18);
+            this.pb_sDurum.Size = new System.Drawing.Size(15, 15);
             this.pb_sDurum.TabIndex = 2;
             this.pb_sDurum.TabStop = false;
             // 
@@ -99,11 +94,9 @@
             // 
             this.gb_bilgiler.Controls.Add(this.lb_bilgiler);
             this.gb_bilgiler.ForeColor = System.Drawing.Color.GreenYellow;
-            this.gb_bilgiler.Location = new System.Drawing.Point(805, 15);
-            this.gb_bilgiler.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gb_bilgiler.Location = new System.Drawing.Point(604, 12);
             this.gb_bilgiler.Name = "gb_bilgiler";
-            this.gb_bilgiler.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.gb_bilgiler.Size = new System.Drawing.Size(257, 524);
+            this.gb_bilgiler.Size = new System.Drawing.Size(193, 426);
             this.gb_bilgiler.TabIndex = 3;
             this.gb_bilgiler.TabStop = false;
             this.gb_bilgiler.Text = "Sunucu Bilgileri";
@@ -111,32 +104,26 @@
             // lb_bilgiler
             // 
             this.lb_bilgiler.FormattingEnabled = true;
-            this.lb_bilgiler.ItemHeight = 16;
-            this.lb_bilgiler.Location = new System.Drawing.Point(23, 25);
-            this.lb_bilgiler.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lb_bilgiler.Location = new System.Drawing.Point(17, 20);
             this.lb_bilgiler.Name = "lb_bilgiler";
-            this.lb_bilgiler.Size = new System.Drawing.Size(212, 484);
+            this.lb_bilgiler.Size = new System.Drawing.Size(160, 394);
             this.lb_bilgiler.TabIndex = 0;
             // 
             // lb_kullanıcılar
             // 
             this.lb_kullanıcılar.FormattingEnabled = true;
-            this.lb_kullanıcılar.ItemHeight = 16;
-            this.lb_kullanıcılar.Location = new System.Drawing.Point(23, 31);
-            this.lb_kullanıcılar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lb_kullanıcılar.Location = new System.Drawing.Point(17, 25);
             this.lb_kullanıcılar.Name = "lb_kullanıcılar";
-            this.lb_kullanıcılar.Size = new System.Drawing.Size(212, 308);
+            this.lb_kullanıcılar.Size = new System.Drawing.Size(160, 251);
             this.lb_kullanıcılar.TabIndex = 1;
             // 
             // gb_kullanıcılar
             // 
             this.gb_kullanıcılar.Controls.Add(this.lb_kullanıcılar);
             this.gb_kullanıcılar.ForeColor = System.Drawing.Color.GreenYellow;
-            this.gb_kullanıcılar.Location = new System.Drawing.Point(16, 185);
-            this.gb_kullanıcılar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gb_kullanıcılar.Location = new System.Drawing.Point(12, 150);
             this.gb_kullanıcılar.Name = "gb_kullanıcılar";
-            this.gb_kullanıcılar.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.gb_kullanıcılar.Size = new System.Drawing.Size(257, 354);
+            this.gb_kullanıcılar.Size = new System.Drawing.Size(193, 288);
             this.gb_kullanıcılar.TabIndex = 4;
             this.gb_kullanıcılar.TabStop = false;
             this.gb_kullanıcılar.Text = "Kullanıcı Listesi";
@@ -145,11 +132,9 @@
             // 
             this.gb_chat.Controls.Add(this.lb_chat);
             this.gb_chat.ForeColor = System.Drawing.Color.GreenYellow;
-            this.gb_chat.Location = new System.Drawing.Point(281, 16);
-            this.gb_chat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gb_chat.Location = new System.Drawing.Point(211, 13);
             this.gb_chat.Name = "gb_chat";
-            this.gb_chat.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.gb_chat.Size = new System.Drawing.Size(516, 523);
+            this.gb_chat.Size = new System.Drawing.Size(387, 425);
             this.gb_chat.TabIndex = 5;
             this.gb_chat.TabStop = false;
             this.gb_chat.Text = "Chat Data";
@@ -157,30 +142,28 @@
             // lb_chat
             // 
             this.lb_chat.FormattingEnabled = true;
-            this.lb_chat.ItemHeight = 16;
-            this.lb_chat.Location = new System.Drawing.Point(9, 23);
-            this.lb_chat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lb_chat.Location = new System.Drawing.Point(7, 19);
             this.lb_chat.Name = "lb_chat";
-            this.lb_chat.Size = new System.Drawing.Size(497, 484);
+            this.lb_chat.Size = new System.Drawing.Size(374, 394);
             this.lb_chat.TabIndex = 0;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(1077, 550);
+            this.ClientSize = new System.Drawing.Size(808, 447);
             this.Controls.Add(this.gb_chat);
             this.Controls.Add(this.gb_kullanıcılar);
             this.Controls.Add(this.gb_bilgiler);
             this.Controls.Add(this.gb_Sunucu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sunucu";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.gb_Sunucu.ResumeLayout(false);
             this.gb_Sunucu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_sDurum)).EndInit();

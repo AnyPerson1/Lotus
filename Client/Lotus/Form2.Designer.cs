@@ -37,18 +37,16 @@
             // 
             // textBoxMessage
             // 
-            this.textBoxMessage.Location = new System.Drawing.Point(47, 192);
-            this.textBoxMessage.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxMessage.Location = new System.Drawing.Point(35, 156);
             this.textBoxMessage.Name = "textBoxMessage";
-            this.textBoxMessage.Size = new System.Drawing.Size(221, 22);
+            this.textBoxMessage.Size = new System.Drawing.Size(167, 20);
             this.textBoxMessage.TabIndex = 0;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(91, 224);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Location = new System.Drawing.Point(68, 182);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(133, 44);
+            this.button1.Size = new System.Drawing.Size(100, 36);
             this.button1.TabIndex = 1;
             this.button1.Text = "gönder";
             this.button1.UseVisualStyleBackColor = true;
@@ -57,28 +55,26 @@
             // listBoxMessages
             // 
             this.listBoxMessages.FormattingEnabled = true;
-            this.listBoxMessages.ItemHeight = 16;
-            this.listBoxMessages.Location = new System.Drawing.Point(317, 16);
-            this.listBoxMessages.Margin = new System.Windows.Forms.Padding(4);
+            this.listBoxMessages.Location = new System.Drawing.Point(238, 13);
             this.listBoxMessages.Name = "listBoxMessages";
-            this.listBoxMessages.Size = new System.Drawing.Size(381, 500);
+            this.listBoxMessages.Size = new System.Drawing.Size(287, 407);
             this.listBoxMessages.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 16);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 16);
+            this.label1.Size = new System.Drawing.Size(39, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "durum:";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 469);
+            this.button2.Location = new System.Drawing.Point(9, 381);
+            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(133, 47);
+            this.button2.Size = new System.Drawing.Size(100, 38);
             this.button2.TabIndex = 4;
             this.button2.Text = "Sesli Sohbet Başlat";
             this.button2.UseVisualStyleBackColor = true;
@@ -87,15 +83,14 @@
             // Form2
             // 
             this.AcceptButton = this.button1;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(737, 532);
+            this.ClientSize = new System.Drawing.Size(553, 432);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBoxMessages);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBoxMessage);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form2";
             this.Text = "Form2";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
