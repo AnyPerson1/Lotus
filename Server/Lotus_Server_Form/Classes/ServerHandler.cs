@@ -99,7 +99,7 @@ namespace Lotus_Server_Form
                 try
                 {
                     TcpClient tcpClient = Whispery.Server.StaticVariables.ServerHandler.messageListener.AcceptTcpClient();
-                    ClientHandler clientHandler = new ClientHandler(tcpClient, this);
+                    ClientHandler clientHandler = new ClientHandler(tcpClient, this,"bok");
                     lock (Whispery.Server.StaticVariables.ServerHandler.messageClients)
                     {
                         Whispery.Server.StaticVariables.ServerHandler.messageClients.Add(clientHandler);
@@ -130,7 +130,7 @@ namespace Lotus_Server_Form
                 {
                     TcpClient reportClient = Whispery.Server.StaticVariables.ServerHandler.reportListener.AcceptTcpClient();
                     // Rapor istemcisi için yeni bir ClientHandler oluşturma
-                    ClientHandler reportClientHandler = new ClientHandler(reportClient, this);
+                    ClientHandler reportClientHandler = new ClientHandler(reportClient, this,"Report");
                     lock (Whispery.Server.StaticVariables.ServerHandler.reportClients)
                     {
                         Whispery.Server.StaticVariables.ServerHandler.reportClients.Add(reportClientHandler);

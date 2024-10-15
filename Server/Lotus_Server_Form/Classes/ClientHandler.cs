@@ -8,26 +8,31 @@ namespace Lotus_Server_Form
     internal class ClientHandler
     {
         private TcpClient client;
-        private TcpClient reportClient;
         private ServerHandler server;
         private NetworkStream stream;
-        private NetworkStream reportStream;
         private Thread clientThread;
+        private string workType;
 
-        public ClientHandler(TcpClient tcpClient, TcpClient reportClient, ServerHandler serverInstance)
+        public ClientHandler(TcpClient tcpClient, ServerHandler serverInstance,string type)
         {
             client = tcpClient;
-            this.reportClient = reportClient;
             server = serverInstance;
             stream = client.GetStream();
-            reportStream = reportClient.GetStream();
+            workType = type;
         }
 
         public void Start()
         {
-            clientThread = new Thread(HandleClient);
+            if (workType == "Report")
+            {
+                clientThread = new Thread(HandleCode);
+            }
+            else
+                clientThread = new Thread(HandleClient);
+
             clientThread.Start();
         }
+
 
         private void HandleClient()
         {
@@ -50,33 +55,41 @@ namespace Lotus_Server_Form
             }
             finally
             {
-                Disconnect(); // Bağlantı kesildiğinde Disconnect metodunu çağır
+                Disconnect();
             }
         }
 
-        // Rapor istemcisinden gelen kodları işle
-        public void HandleCode(string code)
+        public void HandleCode()
         {
-            switch (code)
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            try
             {
-                case "W00001": // Sunucu bağlantısı beklenmedik şekilde kesildi.
-                    Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log("****REPORT**** " + reportClient.ToString() + ": W00001 (Sunucu bağlantısı kesildi)");
-                    Disconnect(); // Bağlantıyı kes
-                    break;
-                default:
-                    throw new Exception("Bilinmeyen kod alındı.");
+                while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0)
+                {
+                    string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    switch (message)
+                    {
+                        case "W00001":
+                            Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log("****REPORT**** " + client.ToString() + ": W00001 (Sunucu bağlantısı kesildi)");
+                            Disconnect();
+                            break;
+                        default:
+                            throw new Exception("Bilinmeyen kod alındı.");
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+
+                Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log("Report portundan veri dinlenirken bir hata oluştu : " + ex.ToString());
+                System.Windows.Forms.MessageBox.Show("Report portundan veri dinlenirken bir hata oluştu " + ex.ToString());
+            }
+
         }
 
         public void Disconnect()
         {
-            // Rapor istemcisi varsa bağlantıyı kapat
-            if (reportClient != null)
-            {
-                reportClient.Close();
-            }
-
-            // Mesaj istemcisi için bağlantıyı kapat
             if (client != null)
             {
                 client.Close();
