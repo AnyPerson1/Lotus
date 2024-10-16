@@ -2,6 +2,7 @@
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using Server.StaticVariables;
 
 namespace Lotus_Server_Form
 {
@@ -71,7 +72,7 @@ namespace Lotus_Server_Form
                     switch (message)
                     {
                         case "W00001":
-                            Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log("****REPORT**** " + client.ToString() + ": W00001 (Sunucu bağlantısı kesildi)");
+                            StaticVariables.eventLogger.Log("****REPORT**** " + client.ToString() + ": W00001 (Sunucu bağlantısı kesildi)");
                             Disconnect();
                             break;
                         default:
@@ -82,7 +83,7 @@ namespace Lotus_Server_Form
             catch (Exception ex)
             {
 
-                Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log("Report portundan veri dinlenirken bir hata oluştu : " + ex.ToString());
+                StaticVariables.eventLogger.Log("Report portundan veri dinlenirken bir hata oluştu : " + ex.ToString());
                 System.Windows.Forms.MessageBox.Show("Report portundan veri dinlenirken bir hata oluştu " + ex.ToString());
             }
 

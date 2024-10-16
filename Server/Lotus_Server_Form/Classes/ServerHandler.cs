@@ -6,7 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Whispery.Server.StaticVariables;
+using Server.StaticVariables;
 
 namespace Lotus_Server_Form
 {
@@ -21,11 +21,11 @@ namespace Lotus_Server_Form
 
         public ServerHandler(int port, int reportPort, Action<string> logEventAction, Action<TcpClient> addClientAction, Action<TcpClient> removeClientAction, Action<string> addChatMessageAction)
         {
-            Whispery.Server.StaticVariables.ServerHandler.messageListener = new TcpListener(IPAddress.Any, port);
-            Whispery.Server.StaticVariables.ServerHandler.reportListener = new TcpListener(IPAddress.Any, reportPort);
-            Whispery.Server.StaticVariables.ServerHandler.messageClients = new List<ClientHandler>();
-            Whispery.Server.StaticVariables.ServerHandler.eventLogger = new EventLogger(logEventAction);
-            Whispery.Server.StaticVariables.ServerHandler.broadcaster = new DataBroadcaster();
+            StaticVariables.messageListener = new TcpListener(IPAddress.Any, port);
+            StaticVariables.reportListener = new TcpListener(IPAddress.Any, reportPort);
+            StaticVariables.messageClients = new List<ClientHandler>();
+            StaticVariables.eventLogger = new EventLogger(logEventAction);
+            StaticVariables.broadcaster = new DataBroadcaster();
             updateEventLog = logEventAction;
             addClientToList = addClientAction;
             removeClientFromList = removeClientAction;
@@ -40,24 +40,24 @@ namespace Lotus_Server_Form
             bool status = true;
             try
             {
-                Whispery.Server.StaticVariables.ServerHandler.messageListener.Start();
-                Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log("Mesaj portu dinleniliyor.");
+                StaticVariables.messageListener.Start();
+                StaticVariables.eventLogger.Log("Mesaj portu dinleniliyor.");
                 status = true;
             }
             catch (Exception ex)
             {
-                Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log("Mesaj portu başlatılamadı : " + ex.ToString());
+                StaticVariables.eventLogger.Log("Mesaj portu başlatılamadı : " + ex.ToString());
                 status = false;
             }
             try
             {
-                Whispery.Server.StaticVariables.ServerHandler.reportListener.Start();
-                Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log("Report portu dinleniliyor");
+                StaticVariables.reportListener.Start();
+                StaticVariables.eventLogger.Log("Report portu dinleniliyor");
                 status = true;
             }
             catch (Exception ex)
             {
-                Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log("Reporter portu başlatılamadı : " + ex.ToString());
+                StaticVariables.eventLogger.Log("Reporter portu başlatılamadı : " + ex.ToString());
                 status = false;
             }
             if (status)
@@ -65,7 +65,7 @@ namespace Lotus_Server_Form
                 isRunning = true;
                 serverThread = new Thread(ListenForClients);
                 serverThread.Start();
-                Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log("Sunucu başarıyla başlatıldı.");
+                StaticVariables.eventLogger.Log("Sunucu başarıyla başlatıldı.");
             }
             return status;
         }
@@ -73,13 +73,13 @@ namespace Lotus_Server_Form
         public void Stop()
         {
             isRunning = false;
-            foreach (var client in Whispery.Server.StaticVariables.ServerHandler.messageClients)
+            foreach (var client in StaticVariables.messageClients)
             {
                 client.Disconnect();
             }
-            Whispery.Server.StaticVariables.ServerHandler.messageListener.Stop();
-            Whispery.Server.StaticVariables.ServerHandler.reportListener.Stop(); // Rapor dinleyicisini durdur
-            Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log("Sunucu kapatıldı.");
+            StaticVariables.messageListener.Stop();
+            StaticVariables.reportListener.Stop(); // Rapor dinleyicisini durdur
+            StaticVariables.eventLogger.Log("Sunucu kapatıldı.");
         }
         #endregion
 
@@ -98,26 +98,26 @@ namespace Lotus_Server_Form
             {
                 try
                 {
-                    TcpClient tcpClient = Whispery.Server.StaticVariables.ServerHandler.messageListener.AcceptTcpClient();
+                    TcpClient tcpClient = StaticVariables.messageListener.AcceptTcpClient();
                     ClientHandler clientHandler = new ClientHandler(tcpClient, this,"bok");
-                    lock (Whispery.Server.StaticVariables.ServerHandler.messageClients)
+                    lock (Server.StaticVariables.StaticVariables.messageClients)
                     {
-                        Whispery.Server.StaticVariables.ServerHandler.messageClients.Add(clientHandler);
+                        Server.StaticVariables.StaticVariables.messageClients.Add(clientHandler);
                     }
                     clientHandler.Start();
                     addClientToList(tcpClient);
-                    Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log("Yeni mesaj istemcisi katıldı.");
+                    Server.StaticVariables.StaticVariables.eventLogger.Log("Yeni mesaj istemcisi katıldı.");
                 }
                 catch (SocketException ex)
                 {
                     if (isRunning)
                     {
-                        Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log($"SocketException: {ex.Message}");
+                        Server.StaticVariables.StaticVariables.eventLogger.Log($"SocketException: {ex.Message}");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log($"Hata: {ex.Message}");
+                    Server.StaticVariables.StaticVariables.eventLogger.Log($"Hata: {ex.Message}");
                 }
             }
         }
@@ -128,26 +128,26 @@ namespace Lotus_Server_Form
             {
                 try
                 {
-                    TcpClient reportClient = Whispery.Server.StaticVariables.ServerHandler.reportListener.AcceptTcpClient();
+                    TcpClient reportClient = Server.StaticVariables.StaticVariables.reportListener.AcceptTcpClient();
                     // Rapor istemcisi için yeni bir ClientHandler oluşturma
                     ClientHandler reportClientHandler = new ClientHandler(reportClient, this,"Report");
-                    lock (Whispery.Server.StaticVariables.ServerHandler.reportClients)
+                    lock (Server.StaticVariables.StaticVariables.reportClients)
                     {
-                        Whispery.Server.StaticVariables.ServerHandler.reportClients.Add(reportClientHandler);
+                        Server.StaticVariables.StaticVariables.reportClients.Add(reportClientHandler);
                     }
                     reportClientHandler.Start();
-                    Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log("Yeni rapor istemcisi katıldı.");
+                    Server.StaticVariables.StaticVariables.eventLogger.Log("Yeni rapor istemcisi katıldı.");
                 }
                 catch (SocketException ex)
                 {
                     if (isRunning)
                     {
-                        Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log($"SocketException: {ex.Message}");
+                        StaticVariables.eventLogger.Log($"SocketException: {ex.Message}");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log($"Hata: {ex.Message}");
+                    StaticVariables.eventLogger.Log($"Hata: {ex.Message}");
                 }
             }
         }
@@ -157,21 +157,21 @@ namespace Lotus_Server_Form
             TcpClient client = clientHandler.GetClient();
             removeClientFromList(client);
             client.Dispose();
-            Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log("İstemci bağlantısı kapatıldı : " + client.ToString());
+            StaticVariables.eventLogger.Log("İstemci bağlantısı kapatıldı : " + client.ToString());
         }
 
         public void RemoveClient(TcpClient client)
         {
             removeClientFromList(client);
             client.Dispose();
-            Whispery.Server.StaticVariables.ServerHandler.eventLogger.Log("İstemci bağlantısı kapatıldı : " + client.ToString());
+            StaticVariables.eventLogger.Log("İstemci bağlantısı kapatıldı : " + client.ToString());
         }
         #endregion
 
         #region Message
         public void BroadcastMessage(string message, TcpClient senderClient)
         {
-            Whispery.Server.StaticVariables.ServerHandler.broadcaster.MessageBroadcast(message, Whispery.Server.StaticVariables.ServerHandler.messageClients, senderClient);
+            StaticVariables.broadcaster.MessageBroadcast(message, StaticVariables.messageClients, senderClient);
         }
 
         public void AddMessageToChat(string message)
