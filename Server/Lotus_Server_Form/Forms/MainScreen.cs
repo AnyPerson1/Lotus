@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Server;
+using Server.StaticVariables;
 
 namespace Lotus_Server_Form.Forms
 {
@@ -24,8 +25,8 @@ namespace Lotus_Server_Form.Forms
         {
             if (server == null)
             {
-                server = new Server.Server(53355, AddClientToList, RemoveClientFromList);
-                server.StartAsync();
+                server = new Server.Server(53447, AddClientToList, RemoveClientFromList);
+                server.Start();
 
                 btn_SunucuAc.Text = "Sunucuyu Kapat";
                 pb_sDurum.BackColor = Color.Green;
@@ -33,6 +34,10 @@ namespace Lotus_Server_Form.Forms
             }
             else
             {
+                foreach (var item in StaticVariables.Clients)
+                {
+                    item.Dispose();
+                }
                 server.Stop();
                 server = null;
                 btn_SunucuAc.Text = "Sunucuyu Başlat";

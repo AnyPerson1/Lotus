@@ -36,21 +36,22 @@
             this.lb_LogLayer1.BackColor = System.Drawing.SystemColors.MenuText;
             this.lb_LogLayer1.ForeColor = System.Drawing.Color.Lime;
             this.lb_LogLayer1.FormattingEnabled = true;
-            this.lb_LogLayer1.ItemHeight = 16;
-            this.lb_LogLayer1.Location = new System.Drawing.Point(13, 13);
+            this.lb_LogLayer1.Location = new System.Drawing.Point(10, 11);
+            this.lb_LogLayer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lb_LogLayer1.Name = "lb_LogLayer1";
-            this.lb_LogLayer1.Size = new System.Drawing.Size(286, 532);
+            this.lb_LogLayer1.Size = new System.Drawing.Size(923, 121);
             this.lb_LogLayer1.TabIndex = 0;
             // 
             // LogLayer1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(317, 560);
+            this.ClientSize = new System.Drawing.Size(944, 143);
             this.Controls.Add(this.lb_LogLayer1);
             this.ForeColor = System.Drawing.Color.Green;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "LogLayer1";
             this.Text = "LOG LAYER1";
             this.Load += new System.EventHandler(this.LogLayer1_Load);

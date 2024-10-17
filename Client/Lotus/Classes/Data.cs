@@ -77,17 +77,11 @@ namespace Whispry.Data
             {
                 if (!string.IsNullOrEmpty(textBoxMessage.Text))
                 {
-                    string[] dataToGo = new string[4];
                     string fullMessage = $"{KullaniciAdi}: {textBoxMessage.Text}";
-                    dataToGo[0] = "Message";
-                    dataToGo[1] = fullMessage;
-                    dataToGo[2] = "0";
-                    dataToGo[3] = "0";
-                    foreach (var item in dataToGo)
-                    {
-                        byte[] data = Encoding.UTF8.GetBytes(fullMessage);
-                        stream.Write(data, 0, data.Length);
-                    }
+                    
+                    string dataToGo = "Message;"+fullMessage+";"+"0;"+"0";
+                    byte[] data = Encoding.UTF8.GetBytes(dataToGo);
+                    stream.Write(data, 0, data.Length);
                     listBoxMessages.Items.Add(fullMessage);
                     textBoxMessage.Clear();
                 }

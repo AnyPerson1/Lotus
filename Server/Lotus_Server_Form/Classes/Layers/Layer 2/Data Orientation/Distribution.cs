@@ -14,20 +14,23 @@ namespace Server.Stage2.Orientation
         public void DefineMessage(string[] data,TcpClient sender, bool Addressing)
         {
             _tcpClient = sender;
-            switch (data[0])
+            if (StaticVariables.StaticVariables.status)
             {
-                case "Report":
-                    ReportMessage(data[1], _tcpClient);
-                    break;
-                case "Message":
-                    SendMessage(data, Addressing);
-                    break;
-                case "Voice":
-                    SendVoice(data, Addressing);
-                    break;
-                default:
-                    break;
+                switch (data[0])
+                {
+                    case "Report":
+                        ReportMessage(data[1], _tcpClient);
+                        break;
+                    case "Message":
+                        SendMessage(data, Addressing);
+                        break;
+                    case "Voice":
+                        SendVoice(data, Addressing);
+                        break;
+                    default:
+                        break;
 
+                }
             }
         }
         private void ReportMessage(string code, TcpClient client)

@@ -19,6 +19,7 @@ namespace Server.StaticVariables
         public static ListBox Log1 { get; set; }
         public static ListBox Log2 { get; set; }
         public static ListBox Log3 { get; set; }
+        public static bool status { get; set; }
 
 
     }

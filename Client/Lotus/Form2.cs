@@ -29,7 +29,7 @@ namespace Lotus
 
             if (client == null || !client.Connected)
             {
-                data = new WhispryData("192.168.46.88", 53269, listBoxMessages, textBoxMessage, UserName);
+                data = new WhispryData("193.106.196.207", 53447, listBoxMessages, textBoxMessage, UserName);
                 listBoxMessages.Items.Add("Sunucuya bağlanıldı.");
                 data.SendMessage(UserName+ " sunucuya katıldı.");
             }
