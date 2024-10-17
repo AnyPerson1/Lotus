@@ -4,38 +4,32 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Server;
 
-namespace Lotus_Server_Form
+namespace Lotus_Server_Form.Forms
 {
-    public partial class Form1 : Form
+    public partial class MainScreen : Form
     {
-        private ServerHandler server;
-
-        public Form1()
+        private Server.Server server;
+        public MainScreen()
         {
             InitializeComponent();
             lb_bilgiler.HorizontalScrollbar = true;
         }
-
         private void btn_SunucuAc_Click(object sender, EventArgs e)
         {
             if (server == null)
             {
-                server = new ServerHandler(53447, 62321, AddEvent, AddClientToList, RemoveClientFromList, AddMessage);
-                if (server.Start())
-                {
-                    btn_SunucuAc.Text = "Sunucuyu Kapat";
-                    pb_sDurum.BackColor = Color.Green;
-                    lbl_durum.Text = "Sunucu Şuan Açık";
-                }
-                else
-                    MessageBox.Show("Sunucu başlatılırken bir hata oluştu, hata detayları günlüğe eklendi.");
+                server = new Server.Server(53355, AddClientToList, RemoveClientFromList);
+                server.StartAsync();
+
+                btn_SunucuAc.Text = "Sunucuyu Kapat";
+                pb_sDurum.BackColor = Color.Green;
+                lbl_durum.Text = "Sunucu Şuan Açık";
             }
             else
             {
@@ -44,20 +38,6 @@ namespace Lotus_Server_Form
                 btn_SunucuAc.Text = "Sunucuyu Başlat";
                 pb_sDurum.BackColor = Color.Red;
                 lbl_durum.Text = "Sunucu Şuan Kapalı";
-            }
-        }
-
-        private void AddEvent(string eventMessage)
-        {
-            if (lb_bilgiler.InvokeRequired)
-            {
-                lb_bilgiler.Invoke(new MethodInvoker(delegate {
-                    lb_bilgiler.Items.Add(eventMessage);
-                }));
-            }
-            else
-            {
-                lb_bilgiler.Items.Add(eventMessage);
             }
         }
 
@@ -85,21 +65,14 @@ namespace Lotus_Server_Form
             }
         }
 
-        private void AddMessage(string message)
-        {
-            if (lb_chat.InvokeRequired)
-            {
-                lb_chat.Invoke(new MethodInvoker(delegate { lb_chat.Items.Add(message); }));
-            }
-            else
-            {
-                lb_chat.Items.Add(message);
-            }
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            LogLayer1 logLayer1 = new LogLayer1();
+            LogLayer2 logLayer2 = new LogLayer2();
+            LogLayer3 logLayer3 = new LogLayer3();
+            logLayer1.Show();
+            logLayer2.Show();
+            logLayer3.Show();
         }
     }
 }

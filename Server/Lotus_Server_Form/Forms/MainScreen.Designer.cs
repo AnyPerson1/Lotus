@@ -1,6 +1,6 @@
-﻿namespace Lotus_Server_Form
+﻿namespace Lotus_Server_Form.Forms
 {
-    partial class Form1
+    partial class MainScreen
     {
         /// <summary>
         ///Gerekli tasarımcı değişkeni.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainScreen));
             this.lbl_durum = new System.Windows.Forms.Label();
             this.btn_SunucuAc = new System.Windows.Forms.Button();
             this.gb_Sunucu = new System.Windows.Forms.GroupBox();
@@ -158,7 +158,6 @@
             this.Controls.Add(this.gb_bilgiler);
             this.Controls.Add(this.gb_Sunucu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -188,4 +187,3 @@
         private System.Windows.Forms.PictureBox pb_sDurum;
     }
 }
-

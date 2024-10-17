@@ -8,33 +8,35 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Server.Stage2.Orientation;
+using System.Diagnostics;
 
 namespace Lotus_Server_Form.Stage_1.Client
 {
-    internal class Client : DataRecieve
+    internal class Client
     {
-        private Thread clientThread;
-
         // Constructor
-        public Client(TcpClient client) : base(client) // DataRecieve sınıfının constructor'ını çağır
+        TcpClient client;
+        public Client(TcpClient client) // DataRecieve sınıfının constructor'ını çağır
         {
-            clientThread = new Thread(StartListening);
-            clientThread.Start();
+            DataRecieve dr = new DataRecieve();
+            this.client = client;
+            _ = StartListeningAsync(); // Asenkron dinlemeyi başlat
         }
 
-        // Dinleme metodu
-        private void StartListening()
+        // Asenkron dinleme metodu
+        private async Task StartListeningAsync()
         {
-            SetStatus(true);
-
+            DataSetStatus(true);
+            Distribution distribution = new Distribution();
             while (true)
             {
                 try
                 {
-                    var data = StartListeningClient();
+                    var data = await StartListeningClientAsync();
                     if (data != null)
                     {
-                        // Veriyi işleme al
+                        distribution.DefineMessage(data,client,false);
                     }
                 }
                 catch (Exception ex)
@@ -45,18 +47,18 @@ namespace Lotus_Server_Form.Stage_1.Client
                 }
             }
         }
-        protected TcpClient AcceptClient()
+
+        protected async Task<TcpClient> AcceptClientAsync()
         {
-            TcpClient clientToAccept;
             while (true)
             {
-                clientToAccept = StaticVariables.Listener.AcceptTcpClient();
-                if (clientToAccept != null) 
-                { 
+                TcpClient clientToAccept = await StaticVariables.Listener.AcceptTcpClientAsync();
+                if (clientToAccept != null)
+                {
                     return clientToAccept;
                 }
             }
-
         }
     }
+
 }

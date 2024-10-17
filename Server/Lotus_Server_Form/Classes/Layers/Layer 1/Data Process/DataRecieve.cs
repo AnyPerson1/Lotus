@@ -7,54 +7,55 @@ using System.Text;
 using System.Threading.Tasks;
 using Server.Stage1.Libraries;
 using Server.Passive;
+using Server.Logger;
 
 namespace Server.Stage1.DataRecieve
 {
-    class DataRecieve : Data
+    internal class DataRecieve : Data
     {
         private bool Run;
         private NetworkStream clientStream;
         private TcpClient client;
-        
 
         public DataRecieve(TcpClient client)
         {
-            this.client = client;
-            clientStream = this.client.GetStream();
-            if (SetClient(client,clientStream))
-                return;
+            if (client != null)
+            {
+                this.client = client;
+                clientStream = this.client.GetStream();
+            }
             else
+            {
+
+            }
+            if (SetClient(client, clientStream))
             {
                 ServerWarningCode warning = new ServerWarningCode("W0002");
             }
-
         }
-        
-        public void SetStatus(bool status)
+
+        protected void SetStatus(bool status)
         {
             Run = status;
         } // döngünün çalışma izni olup olmadığını belirle
 
-        public string[] StartListeningClient()
+        protected async Task<string[]> StartListeningClientAsync()
         {
-            string[] dataToGo = new string[4];
             if (!Run)
             {
-                ServerConsole.Log($"Client dinleme işlemi için izin yok! {client.ToString()}");
+                Logger.Logger.Log($"Client dinleme işlemi için izin yok! {client.Client.RemoteEndPoint}",Logger.Logger.LogLayer.Layer2);
                 return null;
             }
-            else
+
+            while (true)
             {
-                while (true)
+                string[] dataToGo = await RecieveAsync();
+                if (dataToGo != null)
                 {
-                    dataToGo = Recieve();
-                    if (dataToGo != null)
-                    {
-                        return dataToGo;
-                    }
+                    return dataToGo;
                 }
             }
-        } // istemciyi dinle
-
+        }
     }
+
 }

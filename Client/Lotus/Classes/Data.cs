@@ -15,9 +15,7 @@ namespace Whispry.Data
     public class WhispryData
     {
         private TcpClient client;
-        private TcpClient VoiceClient;
         private NetworkStream stream;
-        private NetworkStream VoiceStream;
         private Thread receiveThread;
         private ListBox listBoxMessages;
         private System.Windows.Forms.TextBox textBoxMessage;
@@ -41,23 +39,6 @@ namespace Whispry.Data
 
             this.textBoxMessage = textBox;
             KullaniciAdi = kullaniciAdi;
-        }
-        public WhispryData(string ip, int port)
-        {
-            
-            try
-            {
-                VoiceClient = new TcpClient(ip, port);
-                VoiceStream = VoiceClient.GetStream();
-
-                receiveThread = new Thread(() => ReceiveVoice(listBoxMessages));
-                receiveThread.IsBackground = true;
-                receiveThread.Start();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Bağlantı hatası: {ex.Message}");
-            }
         }
         public WhispryData()
         {
@@ -89,40 +70,24 @@ namespace Whispry.Data
                 Application.Exit();
             }
         }
-        public void ReceiveVoice(ListBox listBoxMessages)
-        {
-            try
-            {
-                while (VoiceClient.Connected)
-                {
-                    byte[] buffer = new byte[1024];
-                    int bytesRead = VoiceStream.Read(buffer, 0, buffer.Length);
-                    if (bytesRead > 0)
-                    {
-                        string receivedMessage = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-
-                        listBoxMessages.Invoke((MethodInvoker)delegate
-                        {
-                            listBoxMessages.Items.Add(receivedMessage);
-                        });
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Sunucu ile bağlantı kesildi: " + ex.Message);
-                Application.Exit();
-            }
-        }
+        
         public void SendMessage()
         {
             try
             {
                 if (!string.IsNullOrEmpty(textBoxMessage.Text))
                 {
+                    string[] dataToGo = new string[4];
                     string fullMessage = $"{KullaniciAdi}: {textBoxMessage.Text}";
-                    byte[] data = Encoding.UTF8.GetBytes(fullMessage);
-                    stream.Write(data, 0, data.Length);
+                    dataToGo[0] = "Message";
+                    dataToGo[1] = fullMessage;
+                    dataToGo[2] = "0";
+                    dataToGo[3] = "0";
+                    foreach (var item in dataToGo)
+                    {
+                        byte[] data = Encoding.UTF8.GetBytes(fullMessage);
+                        stream.Write(data, 0, data.Length);
+                    }
                     listBoxMessages.Items.Add(fullMessage);
                     textBoxMessage.Clear();
                 }
@@ -147,26 +112,8 @@ namespace Whispry.Data
                 MessageBox.Show($"Mesaj gönderme hatası: {ex.Message}");
             }
         }
-        private WaveInEvent waveIn;
-        public void StartVoiceListening()
-        {
-            waveIn = new WaveInEvent();
-            waveIn.WaveFormat = new WaveFormat(44100, 1);
-            waveIn.DataAvailable += WaveIn_DataAvailable;
-        }
-        public void WaveIn_DataAvailable(object sender, WaveInEventArgs e)
-        {
-            try
-            {
-                if (VoiceStream.CanWrite)
-                {
-                    VoiceStream.Write(e.Buffer, 0, e.BytesRecorded);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Hata: " + ex.Message);
-            }
-        }
+
+
+       
     }
 }

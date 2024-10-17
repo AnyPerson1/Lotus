@@ -7,16 +7,19 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Server.StaticVariables
 {
-    static partial class StaticVariables
+    static class StaticVariables
     {
         public static TcpListener Listener { get; set; }
         //public static List<ClientHandler> Clients { get; set; }
         public static ConcurrentBag<TcpClient> Clients { get; set; }
-        public static EventLogger eventLogger { get; set; }
-        public static DataBroadcaster broadcaster { get; set; }
+        public static ListBox Log1 { get; set; }
+        public static ListBox Log2 { get; set; }
+        public static ListBox Log3 { get; set; }
+
 
     }
 }
