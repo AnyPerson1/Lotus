@@ -78,6 +78,7 @@ namespace Lotus_Server_Form.Forms
             logLayer1.Show();
             logLayer2.Show();
             logLayer3.Show();
+
         }
     }
 }
