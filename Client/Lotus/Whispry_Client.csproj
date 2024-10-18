@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="Classes\Reporter.cs" />
     <Compile Include="Classes\Data.cs" />
+    <Compile Include="Classes\Seperate.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
