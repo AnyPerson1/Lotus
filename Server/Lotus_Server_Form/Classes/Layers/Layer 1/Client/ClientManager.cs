@@ -67,6 +67,7 @@ namespace Lotus_Server_Form.Stage_1.Client
             {
                 client.Close();
                 Logger.Log(client.Client.RemoteEndPoint + " bağlantısı kesildi.",Logger.LogLayer.Layer2);
+                Logger.Log("Thread disposed : "+dataThread,Logger.LogLayer.Layer2);
                 System.Windows.Forms.MessageBox.Show("ClientManager :"+ex.ToString());
                 dcts.Cancel();
                 dataThread.Join();

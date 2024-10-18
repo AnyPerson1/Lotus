@@ -20,6 +20,8 @@ namespace Server
         private Action<TcpClient> removeClientFromList;
         private TcpClient dataClient;
         private NetworkStream dataStream;
+        static CancellationTokenSource cts;
+        Thread listeningThread;
 
         public Server(int port, Action<TcpClient> addClientAction, Action<TcpClient> removeClientAction)
         {
@@ -30,20 +32,39 @@ namespace Server
         }
         private static void ListenClients()
         {
-            if (StaticVariables.StaticVariables.status)
+            cts = new CancellationTokenSource();
+            var token = cts.Token;
+            while (true)
             {
-                while (true)
+                if (StaticVariables.StaticVariables.status)
                 {
-                    TcpClient clientToAccept = StaticVariables.StaticVariables.Listener.AcceptTcpClient();
-                    ClientManager cm = new ClientManager(clientToAccept);
-                    Logger.Logger.Log("Yeni bir istemci bağlandı : " + clientToAccept.Client.RemoteEndPoint, Logger.Logger.LogLayer.Layer1);
-                    lock (StaticVariables.StaticVariables.Clients)
+                    try
                     {
-                        StaticVariables.StaticVariables.Clients.Add(clientToAccept);
+                        TcpClient clientToAccept = StaticVariables.StaticVariables.Listener.AcceptTcpClient();
+                        ClientManager cm = new ClientManager(clientToAccept);
+                        Logger.Logger.Log("Yeni bir istemci bağlandı : " + clientToAccept.Client.RemoteEndPoint, Logger.Logger.LogLayer.Layer1);
+                        lock (StaticVariables.StaticVariables.Clients)
+                        {
+                            StaticVariables.StaticVariables.Clients.Add(clientToAccept);
+                        }
+                        cm.StartThread(); // veri alımı başladı.
                     }
-                    cm.StartThread(); // veri alımı başladı.
+                    catch (SocketException ex)
+                    {
+                        // Bu hata, dinleyici durdurulursa beklenen bir durumdur
+                        if (!StaticVariables.StaticVariables.status)
+                        {
+                            return; // Dinleyici kapatılmış, normal sonlandırma
+                        }
+                        else
+                        {
+                            System.Windows.Forms.MessageBox.Show(ex.ToString());
+                        }
+                        throw; // Diğer hataları yeniden fırlat
+                    }
                 }
             }
+            
 
         }
         public void Start()
@@ -52,7 +73,7 @@ namespace Server
             {
                 StaticVariables.StaticVariables.status = true;
                 StaticVariables.StaticVariables.Listener.Start();
-                Thread listeningThread = new Thread(ListenClients);
+                listeningThread = new Thread(ListenClients);
                 listeningThread.Start();
                 Logger.Logger.Log($"Sunucu başlatıldı | {DateTime.Now}", Logger.Logger.LogLayer.Layer3);
             }
@@ -64,11 +85,14 @@ namespace Server
 
         public void Stop()
         {
+            StaticVariables.StaticVariables.status &= false;
             foreach (var client in StaticVariables.StaticVariables.Clients)
             {
                 client.Dispose();
             }
             StaticVariables.StaticVariables.Listener.Stop();
+            cts.Cancel();
+            listeningThread.Join();
             Logger.Logger.Log($"Sunucu kapatıldı | {DateTime.Now}", Logger.Logger.LogLayer.Layer3);
         }
     }
