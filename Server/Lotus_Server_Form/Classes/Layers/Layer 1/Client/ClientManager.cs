@@ -14,9 +14,10 @@ namespace Lotus_Server_Form.Stage_1.Client
 {
     internal partial class ClientManager
     {
-        Thread dataThread;
-        TcpClient client;
-        NetworkStream stream;
+        private Thread dataThread;
+        private CancellationTokenSource dcts;
+        private TcpClient client;
+        private NetworkStream stream;
 
         public ClientManager(TcpClient client) 
         {
@@ -31,6 +32,8 @@ namespace Lotus_Server_Form.Stage_1.Client
         }
         private void Recieve()
         {
+            dcts = new CancellationTokenSource();
+            var token = dcts.Token;
             try
             {
                 if (StaticVariables.status)
@@ -62,7 +65,11 @@ namespace Lotus_Server_Form.Stage_1.Client
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
+                client.Close();
+                Logger.Log(client.Client.RemoteEndPoint + " bağlantısı kesildi.",Logger.LogLayer.Layer2);
+                System.Windows.Forms.MessageBox.Show("ClientManager :"+ex.ToString());
+                dcts.Cancel();
+                dataThread.Join();
             }
         }
     }

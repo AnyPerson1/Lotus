@@ -22,36 +22,19 @@ namespace Server.Stage2.Orientation
             {
                 byte[] data = Encoding.UTF8.GetBytes(message);
                 List<byte> bytes = new List<byte>(data);
-                if (StaticVariables.StaticVariables.Clients.Count > 5)
+                DateTime startTime = DateTime.Now;
+                foreach (var client in StaticVariables.StaticVariables.Clients)
                 {
-                    DateTime startTime = DateTime.Now;
-                    foreach (var client in StaticVariables.StaticVariables.Clients)
+                    if (client != sender)
                     {
-                        if (client != sender)
-                        {
-                            NetworkStream stream = client.GetStream();
-                            stream.Write(data, 0, data.Length);
-                        }
-                    }
-                    DateTime endTime = DateTime.Now;
-                    TimeSpan duration = endTime - startTime;
-                    Logger.Logger.Log($"Data broadcasted : {bytes.Count} bytes. ({duration.TotalMilliseconds}ms)", Logger.Logger.LogLayer.Layer1);
-                }
-                else
-                {
-                    foreach (var client in StaticVariables.StaticVariables.Clients)
-                    {
-                        DateTime startTime = DateTime.Now;
-                        if (client != sender)
-                        {
-                            NetworkStream stream = client.GetStream();
-                            stream.Write(data, 0, data.Length);
-                        }
-                        DateTime endTime = DateTime.Now;
-                        TimeSpan duration = endTime - startTime;
-                        Logger.Logger.Log($"Data sent to {client.Client.RemoteEndPoint}: {bytes.Count} bytes. ({duration.TotalMilliseconds}ms)", Logger.Logger.LogLayer.Layer1);
+                        NetworkStream stream = client.GetStream();
+                        stream.Write(data, 0, data.Length);
                     }
                 }
+                DateTime endTime = DateTime.Now;
+                TimeSpan duration = endTime - startTime;
+                Logger.Logger.Log($"Broadcasting finished : {bytes.Count} bytes. ({duration.TotalMilliseconds}ms)", Logger.Logger.LogLayer.Layer1);
+                
             }
         }
     }
