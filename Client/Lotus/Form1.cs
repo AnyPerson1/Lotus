@@ -8,14 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
-using Lotus.Data;
 
 namespace Lotus
 {
     public partial class Form1 : Form
     {
         Form2 frm2;
-        LotusData data;
 
         public string KullaniciAdi { get; private set; }
         string UserName, UserPassword;

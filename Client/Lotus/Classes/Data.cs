@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NAudio.Wave;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,19 +8,19 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace Lotus.Data
+namespace Whispry.Data
 {
-    public class LotusData
+    public class WhispryData
     {
-        private string kullaniciAdi;
         private TcpClient client;
         private NetworkStream stream;
         private Thread receiveThread;
         private ListBox listBoxMessages;
-        private TextBox textBoxMessage;
-        private string KullaniciAdi;
-        public LotusData(string ip, int port, ListBox listBox, TextBox textBox, string kullaniciAdi)
+        private System.Windows.Forms.TextBox textBoxMessage;
+        public string KullaniciAdi;
+        public WhispryData(string ip, int port, ListBox listBox, System.Windows.Forms.TextBox textBox, string kullaniciAdi)
         {
             listBoxMessages = listBox;
             try
@@ -39,7 +40,7 @@ namespace Lotus.Data
             this.textBoxMessage = textBox;
             KullaniciAdi = kullaniciAdi;
         }
-        public LotusData()
+        public WhispryData()
         {
 
         }
@@ -69,6 +70,7 @@ namespace Lotus.Data
                 Application.Exit();
             }
         }
+        
         public void SendMessage()
         {
             try
@@ -76,7 +78,9 @@ namespace Lotus.Data
                 if (!string.IsNullOrEmpty(textBoxMessage.Text))
                 {
                     string fullMessage = $"{KullaniciAdi}: {textBoxMessage.Text}";
-                    byte[] data = Encoding.UTF8.GetBytes(fullMessage);
+                    
+                    string dataToGo = "Message;"+fullMessage+";"+"0;"+"0";
+                    byte[] data = Encoding.UTF8.GetBytes(dataToGo);
                     stream.Write(data, 0, data.Length);
                     listBoxMessages.Items.Add(fullMessage);
                     textBoxMessage.Clear();
@@ -103,5 +107,7 @@ namespace Lotus.Data
             }
         }
 
+
+       
     }
 }
