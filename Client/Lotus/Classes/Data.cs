@@ -30,7 +30,8 @@ namespace Whispry.Data
             {
                 client = new TcpClient(ip, port);
                 stream = client.GetStream();
-
+                StaticV.client = client;
+                StaticV.stream = stream;
                 receiveThread = new Thread(() => ReceiveMessages(listBoxMessages));
                 receiveThread.IsBackground = true;
                 receiveThread.Start();
@@ -53,13 +54,16 @@ namespace Whispry.Data
             waveIn = new WaveInEvent();
 
             // Kayıt formatını belirleyin (44.1 kHz, 16-bit, Mono)
-            waveIn.WaveFormat = new WaveFormat(44100, 1);
+            waveIn.WaveFormat = new WaveFormat(8000, 8 , 1);
 
 
             // Yeni ses verisi geldiğinde tetiklenen olay
             waveIn.DataAvailable += (sender, e) =>
             {
-                stream.Write(e.Buffer, 0, e.BytesRecorded);
+                if (StaticV.isRecording)
+                {
+                    stream.Write(e.Buffer, 0, e.BytesRecorded);
+                }
             };
 
             // Kayıt durdurulduğunda tetiklenen olay

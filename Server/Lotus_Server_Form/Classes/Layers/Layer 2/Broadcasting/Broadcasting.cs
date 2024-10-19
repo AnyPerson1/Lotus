@@ -37,7 +37,18 @@ namespace Server.Stage2.Orientation
                     }
                     DateTime endTime = DateTime.Now;
                     TimeSpan duration = endTime - startTime;
-                    Logger.Logger.Log($"Broadcasting finished : {bytes.Count} bytes. ({duration.TotalMilliseconds}ms)", Logger.Logger.LogLayer.Layer1);
+                    if (StaticVariables.StaticVariables.Log1.InvokeRequired)
+                    {
+                        StaticVariables.StaticVariables.Log1.Invoke(new Action(() =>
+                        {
+                            Logger.Logger.Log($"Broadcasting finished : {bytes.Count} bytes. ({duration.TotalMilliseconds}ms)", Logger.Logger.LogLayer.Layer1);
+                        }));
+                    }
+                    else
+                    {
+                        Logger.Logger.Log($"Broadcasting finished : {bytes.Count} bytes. ({duration.TotalMilliseconds}ms)", Logger.Logger.LogLayer.Layer1);
+                    }
+
                 }
             }
             catch (Exception)

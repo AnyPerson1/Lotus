@@ -1,4 +1,5 @@
-﻿using Server.Logger;
+﻿using Google.Protobuf.WellKnownTypes;
+using Server.Logger;
 using Server.Stage2.Orientation;
 using Server.StaticVariables;
 using System;
@@ -28,7 +29,17 @@ namespace Lotus_Server_Form.Stage_1.Client
         {
             dataThread = new Thread(Recieve);
             dataThread.Start(); // clientten gelen veriyi okuma işlemine başla
-            Logger.Log("Yeni bir client için thread başlatıldı : "+DateTime.Now,Logger.LogLayer.Layer3);
+            if (StaticVariables.Log1.InvokeRequired)
+            {
+                StaticVariables.Log1.Invoke(new Action(() =>
+                {
+                    Logger.Log("Yeni bir client için thread başlatıldı : " + DateTime.Now, Logger.LogLayer.Layer3);
+                }));
+            }
+            else
+            {
+                Logger.Log("Yeni bir client için thread başlatıldı : " + DateTime.Now, Logger.LogLayer.Layer3);
+            }
         }
         private void Recieve()
         {
@@ -56,18 +67,38 @@ namespace Lotus_Server_Form.Stage_1.Client
                                 distribution.DefineMessage(splitMessage, client, false);
                                 DateTime endTime = DateTime.Now;
                                 TimeSpan duration = endTime - startTime;
-                                Logger.Log($"Data received from {client.Client.RemoteEndPoint}: {memoryStream.Length} bytes. ({duration.TotalMilliseconds}ms)", Logger.LogLayer.Layer1);
+                                if (StaticVariables.Log1.InvokeRequired)
+                                {
+                                    StaticVariables.Log1.Invoke(new Action(() =>
+                                    {
+                                        Logger.Log($"Data received from {client.Client.RemoteEndPoint}: {memoryStream.Length} bytes. ({duration.TotalMilliseconds}ms)", Logger.LogLayer.Layer1);
+                                    }));
+                                }
+                                else
+                                {
+                                    Logger.Log($"Data received from {client.Client.RemoteEndPoint}: {memoryStream.Length} bytes. ({duration.TotalMilliseconds}ms)", Logger.LogLayer.Layer1);
+                                }
                             }
-
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
+                if (StaticVariables.Log2.InvokeRequired)
+                {
+                    StaticVariables.Log2.Invoke(new Action(() =>
+                    {
+                        Logger.Log(client.Client.RemoteEndPoint + " bağlantısı kesildi.", Logger.LogLayer.Layer2);
+                        Logger.Log("Thread disposed : " + dataThread, Logger.LogLayer.Layer2);
+                    }));
+                }
+                else
+                {
+                    Logger.Log(client.Client.RemoteEndPoint + " bağlantısı kesildi.", Logger.LogLayer.Layer2);
+                    Logger.Log("Thread disposed : " + dataThread, Logger.LogLayer.Layer2);
+                }
                 client.Close();
-                Logger.Log(client.Client.RemoteEndPoint + " bağlantısı kesildi.",Logger.LogLayer.Layer2);
-                Logger.Log("Thread disposed : "+dataThread,Logger.LogLayer.Layer2);
                 System.Windows.Forms.MessageBox.Show("ClientManager :"+ex.ToString());
                 dcts.Cancel();
                 dataThread.Join();

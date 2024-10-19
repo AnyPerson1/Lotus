@@ -37,7 +37,6 @@ namespace Server.Stage2.Orientation
         private void ReportMessage(string code, TcpClient client)
         {
             ServerWarningCode warning = new ServerWarningCode(code);
-            Logger.Logger.Log(client.Client.RemoteEndPoint + " : " + code, Logger.Logger.LogLayer.Layer3);
         }
         private void SendVoice(string[] data, bool addressing) // adresleme şuan çalışmıyor
         {

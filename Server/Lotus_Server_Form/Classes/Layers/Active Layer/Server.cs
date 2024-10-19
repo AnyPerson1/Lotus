@@ -11,6 +11,8 @@ using Server.Logger;
 using Lotus_Server_Form.Stage_1.Client;
 using System.IO;
 using System.Linq.Expressions;
+using Google.Protobuf.WellKnownTypes;
+using Org.BouncyCastle.Utilities;
 
 namespace Server
 {
@@ -42,7 +44,17 @@ namespace Server
                     {
                         TcpClient clientToAccept = StaticVariables.StaticVariables.Listener.AcceptTcpClient();
                         ClientManager cm = new ClientManager(clientToAccept);
-                        Logger.Logger.Log("Yeni bir istemci bağlandı : " + clientToAccept.Client.RemoteEndPoint, Logger.Logger.LogLayer.Layer1);
+                        if (StaticVariables.StaticVariables.Log1.InvokeRequired)
+                        {
+                            StaticVariables.StaticVariables.Log1.Invoke(new Action(() =>
+                            {
+                                Logger.Logger.Log("Yeni bir istemci bağlandı : " + clientToAccept.Client.RemoteEndPoint, Logger.Logger.LogLayer.Layer1);
+                            }));
+                        }
+                        else
+                        {
+                            Logger.Logger.Log("Yeni bir istemci bağlandı : " + clientToAccept.Client.RemoteEndPoint, Logger.Logger.LogLayer.Layer1);
+                        }
                         lock (StaticVariables.StaticVariables.Clients)
                         {
                             StaticVariables.StaticVariables.Clients.Add(clientToAccept);
@@ -75,7 +87,17 @@ namespace Server
                 StaticVariables.StaticVariables.Listener.Start();
                 listeningThread = new Thread(ListenClients);
                 listeningThread.Start();
-                Logger.Logger.Log($"Sunucu başlatıldı | {DateTime.Now}", Logger.Logger.LogLayer.Layer3);
+                if (StaticVariables.StaticVariables.Log3.InvokeRequired)
+                {
+                    StaticVariables.StaticVariables.Log3.Invoke(new Action(() =>
+                    {
+                        Logger.Logger.Log($"Sunucu başlatıldı | {DateTime.Now}", Logger.Logger.LogLayer.Layer3);
+                    }));
+                }
+                else
+                {
+                    Logger.Logger.Log($"Sunucu başlatıldı | {DateTime.Now}", Logger.Logger.LogLayer.Layer3);
+                }
             }
             catch (Exception ex)
             {
@@ -93,7 +115,17 @@ namespace Server
             StaticVariables.StaticVariables.Listener.Stop();
             cts.Cancel();
             listeningThread.Join();
-            Logger.Logger.Log($"Sunucu kapatıldı | {DateTime.Now}", Logger.Logger.LogLayer.Layer3);
+            if (StaticVariables.StaticVariables.Log3.InvokeRequired)
+            {
+                StaticVariables.StaticVariables.Log3.Invoke(new Action(() =>
+                {
+                    Logger.Logger.Log($"Sunucu kapatıldı | {DateTime.Now}", Logger.Logger.LogLayer.Layer3);
+                }));
+            }
+            else
+            {
+                Logger.Logger.Log($"Sunucu kapatıldı | {DateTime.Now}", Logger.Logger.LogLayer.Layer3);
+            }
         }
     }
 

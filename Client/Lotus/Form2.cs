@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Whispry.Data;
 
+
 namespace Lotus
 {
     public partial class Form2 : Form
@@ -29,7 +30,7 @@ namespace Lotus
 
             if (client == null || !client.Connected)
             {
-                data = new WhispryData("192.168.1.104", 51776, listBoxMessages, textBoxMessage, UserName);
+                data = new WhispryData("193.106.196.207", 53447, listBoxMessages, textBoxMessage, UserName);
                 listBoxMessages.Items.Add("Sunucuya bağlanıldı.");
                 data.SendMessage(UserName+ " sunucuya katıldı.");
                 data.KaydiBaslat();
@@ -56,6 +57,7 @@ namespace Lotus
 
         private void Form2_Load(object sender, EventArgs e)
         {
+            StaticV.isRecording = false;
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -67,8 +69,16 @@ namespace Lotus
         WhispryData VoiceData;
         private void button2_Click(object sender, EventArgs e)
         {
-            
-            
+            if (StaticV.isRecording)
+            {
+                StaticV.isRecording = false;
+
+            }
+            else
+            {
+                StaticV.isRecording = true;
+            }
+
         }
         
     }
