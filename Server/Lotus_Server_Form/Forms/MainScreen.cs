@@ -25,7 +25,7 @@ namespace Lotus_Server_Form.Forms
         {
             if (server == null)
             {
-                server = new Server.Server(53447, AddClientToList, RemoveClientFromList);
+                server = new Server.Server(51776, AddClientToList, RemoveClientFromList);
                 server.Start();
 
                 btn_SunucuAc.Text = "Sunucuyu Kapat";

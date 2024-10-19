@@ -13,6 +13,7 @@ namespace Server.Stage2.Orientation
         private TcpClient _tcpClient;
         public void DefineMessage(string[] data,TcpClient sender, bool Addressing)
         {
+
             _tcpClient = sender;
             if (StaticVariables.StaticVariables.status)
             {
@@ -40,11 +41,13 @@ namespace Server.Stage2.Orientation
         }
         private void SendVoice(string[] data, bool addressing) // adresleme şuan çalışmıyor
         {
-            Broadcast(data[1],_tcpClient);
+            string dataToGo = "Voice;" + data[1];
+            Broadcast(dataToGo,_tcpClient);
         }
         private void SendMessage(string[] data, bool addressing) // adresleme şuan çalışmıyor
         {
-            Broadcast(data[1], _tcpClient);
+            string dataToGo = "Message;" + data[1];
+            Broadcast(dataToGo, _tcpClient);
         }
     }
 }

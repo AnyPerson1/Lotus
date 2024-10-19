@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Lotus.Classes
 {
-    internal class Seperate
+    static class Seperate
     {
+        public static string[] Data(string data)
+        {
+            string[] result = new string[2];
+            result = data.Split(';');
+            return result;
+        }
     }
 }

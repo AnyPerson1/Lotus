@@ -29,9 +29,10 @@ namespace Lotus
 
             if (client == null || !client.Connected)
             {
-                data = new WhispryData("193.106.196.207", 53447, listBoxMessages, textBoxMessage, UserName);
+                data = new WhispryData("192.168.1.104", 51776, listBoxMessages, textBoxMessage, UserName);
                 listBoxMessages.Items.Add("Sunucuya bağlanıldı.");
                 data.SendMessage(UserName+ " sunucuya katıldı.");
+                data.KaydiBaslat();
             }
         }
 
@@ -42,6 +43,7 @@ namespace Lotus
                 data.SendMessage();
             }
         }
+        
         #endregion
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -54,7 +56,6 @@ namespace Lotus
 
         private void Form2_Load(object sender, EventArgs e)
         {
-
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
